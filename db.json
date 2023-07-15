@@ -1,0 +1,46 @@
+{
+  "restaurent": [
+    {
+      "id": 1,
+      "name": "Pissa-Hut",
+      "address": "noida",
+      "rating": "4.5",
+      "email": "pissahut@test.com"
+    },
+    {
+      "id": 2,
+      "name": "some comment",
+      "address": "ankit",
+      "rating": "4.5",
+      "email": "pissahut@test.com"
+    },
+    {
+      "id": 3,
+      "name": "typicode",
+      "address": "bhandara",
+      "rating": "4.5",
+      "email": "pissahut@test.com"
+    },
+    {
+      "id": 4,
+      "name": "bread",
+      "address": "noijda",
+      "rating": "4.67",
+      "email": "aditay@test.com"
+    },
+    {
+      "id": 5,
+      "name": "tomato saus",
+      "address": "noijda",
+      "rating": "4.6",
+      "email": "tomatosaus@test.com"
+    },
+    {
+      "name": "ankit",
+      "email": "gadge@gmail.com",
+      "address": "majal",
+      "rating": "4",
+      "id": 6
+    }
+  ]
+}
