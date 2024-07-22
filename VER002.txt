@@ -1,0 +1,15 @@
+	public static final String RES_CODE_RG0002 = "RG0002";
+	public static final String REQUIRED_FIELDS_MISSING = "REQUIRED FIELDS MISSING";
+
+	public static final String RES_CODE_RG0003 = "RG0003";
+	public static final String OPERATION_FAILED_GENERIC_MESSAGE = "OPERATION FAILED";
+
+	public static final String RES_CODE_SENT001 = "SENT001";
+	public static final String SMS_OR_MAIL_SENT_SUCCESSFULLY = "SMS OR MAIL SENT SUCCESSFULLY";
+
+	public static final String RES_CODE_SENT002 = "SENT002";
+	public static final String SMS_OR_MAIL_SENT_FAILURE = "SMS OR MAIL SENT FAILURE";
+	public static final String RES_CODE_VER001 = "VER001";
+	private static final String SMS_OR_MAIL_VERIFIED_SUCCESSFULLY = "SMS OR MAIL VERIFIED SUCCESSFULLY";
+	public static final String RES_CODE_VER002 = "VER002";
+	private static final String SMS_OR_MAIL_VERIFIED_FAILURE = "SMS OR MAIL VERIFIED FAILURE";
