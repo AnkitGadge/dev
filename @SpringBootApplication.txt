@@ -1,0 +1,4 @@
+
+@SpringBootApplication(scanBasePackages = {"com.ccmd.billpayment", "com.ccms.creditcard"})
+@EntityScan(basePackages = {"com.ccmd.billpayment.beans", "com.ccms.creditcard.beans"})
+@EnableJpaRepositories(basePackages = {"com.ccmd.billpayment.repository", "com.ccms.creditcard.repository"})
