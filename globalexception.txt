@@ -1,0 +1,60 @@
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ResponseMapper> exceptionHandler(MethodArgumentNotValidException ex) {
+		ex.printStackTrace();
+		ResponseMapper responseMapper = new ResponseMapper(LocalizedConstants.RES_CODE_FAILURE,
+				BillingUtill.REQUIRED_FIELDS_MISSING);
+		responseMapper.addValidations(BillingUtill.RES_CODE_RG0002, BillingUtill.REQUIRED_FIELDS_MISSING);
+
+		return new ResponseEntity<>(responseMapper, HttpStatus.BAD_REQUEST);
+
+	}
+
+	@ExceptionHandler(EmptyResultDataAccessException.class)
+	public ResponseEntity<ResponseMapper> emptyResultDataAccessExceptionHandler(EmptyResultDataAccessException ex) {
+
+		ResponseMapper responseMapper = new ResponseMapper(LocalizedConstants.RES_CODE_SUCCESS,
+				BillingUtill.NO_DATA_FOUND);
+		responseMapper.addValidations(BillingUtill.RES_CODE_RG0003, BillingUtill.NO_DATA_FOUND);
+
+		return new ResponseEntity<>(responseMapper, HttpStatus.OK);
+
+	}
+
+	@ExceptionHandler(NoDataFoundException.class)
+	public ResponseEntity<ResponseMapper> emptyResultDataAccessExceptionHandler(NoDataFoundException ex) {
+
+		ResponseMapper responseMapper = new ResponseMapper(LocalizedConstants.RES_CODE_SUCCESS,
+				BillingUtill.NO_DATA_FOUND,"Records are not found");
+		responseMapper.addValidations(BillingUtill.RES_CODE_RG0003, BillingUtill.NO_DATA_FOUND);
+
+		return new ResponseEntity<>(responseMapper, HttpStatus.OK);
+
+	}
+
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ResponseMapper> exceptionHandler(Exception ex) {
+
+		ex.printStackTrace();
+
+		ResponseMapper responseMapper = new ResponseMapper(LocalizedConstants.RES_CODE_FAILURE,
+				BillingUtill.OPERATION_FAILED_GENERIC_MESSAGE);
+		responseMapper.addValidations(BillingUtill.RES_CODE_RG0003, BillingUtill.OPERATION_FAILED_GENERIC_MESSAGE);
+
+		return new ResponseEntity<>(responseMapper, HttpStatus.INTERNAL_SERVER_ERROR);
+
+	}
+	
+	@ExceptionHandler(FailedException.class)
+	public ResponseEntity<ResponseMapper> exceptionHandler(FailedException ex) {
+		ex.printStackTrace();
+		ResponseMapper responseMapper = new ResponseMapper(LocalizedConstants.RES_CODE_FAILURE, ex.getMessage());
+		responseMapper.addValidations(BillingUtill.RES_CODE_RG0003, ex.getMessage());
+
+		return new ResponseEntity<ResponseMapper>(responseMapper, HttpStatus.BAD_REQUEST);
+
+	}
+
+}
