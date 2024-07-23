@@ -1,0 +1,48 @@
+CREATE TABLE credit_card_service.users (
+    user_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    mobile_no VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    roles VARCHAR(100) NOT NULL
+);
+
+
+CREATE TABLE credit_card_service.credit_card (
+    credit_card_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    card_number VARCHAR(16) UNIQUE NOT NULL,
+    credit_limit DOUBLE NOT NULL,
+    balance DOUBLE DEFAULT 0.0,
+    user_id BIGINT NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE credit_card_service.transaction (
+    transaction_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    credit_card_id BIGINT NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    amount DOUBLE NOT NULL,
+    transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (credit_card_id) REFERENCES credit_card(credit_card_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE credit_card_service.bill_payment (
+    bill_payment_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    credit_card_id BIGINT NOT NULL,
+    amount DOUBLE NOT NULL,
+    payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (credit_card_id) REFERENCES credit_card(credit_card_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE credit_card_service.notification (
+    notification_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    message VARCHAR(255) NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    transaction_id BIGINT ,
+    
+      FOREIGN KEY (transaction_id) REFERENCES transaction(transaction_id) ON DELETE CASCADE
+);
