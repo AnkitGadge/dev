@@ -90,3 +90,30 @@ public class CardDetails extends BaseEntity {
     @OneToMany(mappedBy = "cardId", fetch = FetchType.LAZY)
     private List<CardStatement> cardStatementList;
 }
+
+
+/**
+     * American express card payment service.
+     */
+    AMERICAN_EXPRESS("AMEX"),
+    /**
+     * Visa card payment service.
+     */
+    VISA("VISA"),
+    /**
+     * Master card card payment service.
+     */
+    MASTER_CARD("MTC"),
+    /**
+     * Maestro card payment service.
+     */
+    MAESTRO("MAS"),
+    /**
+     * Discover card payment service.
+     */
+    DISCOVER("DIS"),
+    /**
+     * Rupay card payment service.
+     */
+    RUPAY("RUPAY");
+    private final String code;
