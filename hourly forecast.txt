@@ -1,0 +1,80 @@
+
+      <label className="title">Hourly</label>
+      <Accordion allowZeroExpanded>
+        {data.hourly.slice(0, 24).map((item, idx) => (
+          <AccordionItem key={idx}>
+            <AccordionItemHeading>
+              <AccordionItemButton>
+                <div className="hourly-item">
+                  <img src={`icons/${item.weather[0].icon}.png`} className="icon-small" alt="weather" />
+                  <label className="time">{new Date(item.dt * 1000).getHours()}:00</label>
+                  <label className="description">{item.weather[0].description}</label>
+                  <label className="temp">{Math.round(item.temp)}°C</label>
+                </div>
+              </AccordionItemButton>
+            </AccordionItemHeading>
+            <AccordionItemPanel>
+              <div className="hourly-details-grid">
+                <div className="hourly-details-grid-item">
+                  <label>Pressure:</label>
+                  <label>{item.pressure} hPa</label>
+                </div>
+                <div className="hourly-details-grid-item">
+                  <label>Humidity:</label>
+                  <label>{item.humidity}%</label>
+                </div>
+                <div className="hourly-details-grid-item">
+                  <label>Clouds:</label>
+                  <label>{item.clouds}%</label>
+                </div>
+                <div className="hourly-details-grid-item">
+                  <label>Wind speed:</label>
+                  <label>{item.wind_speed} m/s</label>
+                </div>
+                <div className="hourly-details-grid-item">
+                  <label>Feels like:</label>
+                  <label>{item.feels_like}°C</label>
+                </div>
+              </div>
+            </AccordionItemPanel>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </>
+  );
+};
+
+
+
+/* forecast.css */
+.title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.daily-item,
+.hourly-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.daily-item .icon-small,
+.hourly-item .icon-small {
+  width: 40px;
+  height: 40px;
+}
+
+.daily-details-grid,
+.hourly-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.daily-details-grid-item,
+.hourly-details-grid-item {
+  display: flex;
+  justify-content: space-between;
+}
