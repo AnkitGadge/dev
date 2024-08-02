@@ -1,80 +1,58 @@
+import React from "react";
+import "./hourly-weather.css";
 
-      <label className="title">Hourly</label>
-      <Accordion allowZeroExpanded>
-        {data.hourly.slice(0, 24).map((item, idx) => (
-          <AccordionItem key={idx}>
-            <AccordionItemHeading>
-              <AccordionItemButton>
-                <div className="hourly-item">
-                  <img src={`icons/${item.weather[0].icon}.png`} className="icon-small" alt="weather" />
-                  <label className="time">{new Date(item.dt * 1000).getHours()}:00</label>
-                  <label className="description">{item.weather[0].description}</label>
-                  <label className="temp">{Math.round(item.temp)}°C</label>
-                </div>
-              </AccordionItemButton>
-            </AccordionItemHeading>
-            <AccordionItemPanel>
-              <div className="hourly-details-grid">
-                <div className="hourly-details-grid-item">
-                  <label>Pressure:</label>
-                  <label>{item.pressure} hPa</label>
-                </div>
-                <div className="hourly-details-grid-item">
-                  <label>Humidity:</label>
-                  <label>{item.humidity}%</label>
-                </div>
-                <div className="hourly-details-grid-item">
-                  <label>Clouds:</label>
-                  <label>{item.clouds}%</label>
-                </div>
-                <div className="hourly-details-grid-item">
-                  <label>Wind speed:</label>
-                  <label>{item.wind_speed} m/s</label>
-                </div>
-                <div className="hourly-details-grid-item">
-                  <label>Feels like:</label>
-                  <label>{item.feels_like}°C</label>
-                </div>
-              </div>
-            </AccordionItemPanel>
-          </AccordionItem>
-        ))}
-      </Accordion>
-    </>
+const HourlyWeather = ({ data, unit, convertTemperature }) => {
+  const getHourlyData = (hour) => {
+    // Filter and format hourly data for the current day
+    const hourlyList = data.list.filter((item) => new Date(item.dt * 1000).toDateString() === new Date().toDateString());
+    return hourlyList.map((item, index) => (
+      <div key={index} className="hourly-item">
+        <p className="hour">{new Date(item.dt * 1000).getHours()}:00</p>
+        <img src={`icons/${item.weather[0].icon}.png`} className="icon-small" alt="weather" />
+        <p className="temperature">{convertTemperature(item.main.temp)}°{unit}</p>
+        <p className="description">{item.weather[0].description}</p>
+      </div>
+    ));
+  };
+
+  return (
+    <div className="hourly-weather">
+      <h2>Hourly Forecast</h2>
+      <div className="hourly-list">
+        {getHourlyData()}
+      </div>
+    </div>
   );
 };
 
+export default HourlyWeather;
 
 
-/* forecast.css */
-.title {
-  font-size: 1.5em;
-  margin-bottom: 10px;
+.hourly-weather {
+  margin: 20px;
 }
 
-.daily-item,
+.hourly-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .hourly-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  flex: 1 1 100px;
+  text-align: center;
+  margin: 10px;
 }
 
-.daily-item .icon-small,
-.hourly-item .icon-small {
-  width: 40px;
-  height: 40px;
+.icon-small {
+  width: 50px;
+  height: 50px;
 }
 
-.daily-details-grid,
-.hourly-details-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+.temperature {
+  font-size: 1.2rem;
 }
 
-.daily-details-grid-item,
-.hourly-details-grid-item {
-  display: flex;
-  justify-content: space-between;
+.hour {
+  font-size: 1rem;
+  font-weight: bold;
 }
