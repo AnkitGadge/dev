@@ -1,0 +1,123 @@
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import App from "./App";
+
+describe("App Component", () => {
+  test("renders Search component", () => {
+    render(<App />);
+    const searchElement = screen.getByPlaceholderText(/Search for city/i);
+    expect(searchElement).toBeInTheDocument();
+  });
+
+  test("renders toggle button", () => {
+    render(<App />);
+    const toggleButton = screen.getByText(/Toggle to °F/i);
+    expect(toggleButton).toBeInTheDocument();
+  });
+
+  test("toggles temperature unit", () => {
+    render(<App />);
+    const toggleButton = screen.getByText(/Toggle to °F/i);
+    fireEvent.click(toggleButton);
+    expect(toggleButton).toHaveTextContent(/Toggle to °C/i);
+  });
+});
+
+
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import Search from "./components/search/search";
+
+describe("Search Component", () => {
+  test("renders search input", () => {
+    render(<Search onSearchChange={jest.fn()} />);
+    const searchInput = screen.getByPlaceholderText(/Search for city/i);
+    expect(searchInput).toBeInTheDocument();
+  });
+
+  test("handles search input change", () => {
+    const handleOnSearchChange = jest.fn();
+    render(<Search onSearchChange={handleOnSearchChange} />);
+    const searchInput = screen.getByPlaceholderText(/Search for city/i);
+
+    fireEvent.change(searchInput, { target: { value: "New York" } });
+    expect(searchInput.value).toBe("New York");
+  });
+});
+
+
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import CurrentWeather from "./components/current-weather/current-weather";
+
+const mockData = {
+  city: "New York",
+  weather: [{ description: "clear sky", icon: "01d" }],
+  main: { temp: 25, feels_like: 27, humidity: 50, pressure: 1012 },
+  wind: { speed: 5 },
+};
+
+describe("CurrentWeather Component", () => {
+  test("renders weather data", () => {
+    render(<CurrentWeather data={mockData} unit="C" convertTemperature={(temp) => temp} />);
+    
+    expect(screen.getByText(/New York/i)).toBeInTheDocument();
+    expect(screen.getByText(/clear sky/i)).toBeInTheDocument();
+    expect(screen.getByText(/25°C/i)).toBeInTheDocument();
+    expect(screen.getByText(/Feels like/i)).toBeInTheDocument();
+  });
+});
+
+
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import Forecast from "./components/forecast/forecast";
+
+const mockData = {
+  list: [
+    {
+      dt: 1618317040,
+      main: { temp_max: 15, temp_min: 10, pressure: 1015, humidity: 80, feels_like: 13 },
+      weather: [{ description: "cloudy", icon: "03d" }],
+      clouds: { all: 90 },
+      wind: { speed: 3 },
+    },
+  ],
+};
+
+describe("Forecast Component", () => {
+  test("renders daily forecast", () => {
+    render(<Forecast data={mockData} unit="C" convertTemperature={(temp) => temp} />);
+
+    expect(screen.getByText(/cloudy/i)).toBeInTheDocument();
+    expect(screen.getByText(/15°C \/10°C/i)).toBeInTheDocument();
+    expect(screen.getByText(/Pressure:/i)).toBeInTheDocument();
+    expect(screen.getByText(/Humidity:/i)).toBeInTheDocument();
+  });
+});
+
+
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import HourlyWeather from "./components/hourly-weather/hourly-weather";
+
+const mockData = {
+  list: [
+    {
+      dt: new Date().getTime() / 1000, // current date time in seconds
+      main: { temp: 15 },
+      weather: [{ description: "cloudy", icon: "03d" }],
+    },
+  ],
+};
+
+describe("HourlyWeather Component", () => {
+  test("renders hourly forecast", () => {
+    render(<HourlyWeather data={mockData} unit="C" convertTemperature={(temp) => temp} />);
+    
+    const currentHour = new Date().getHours();
+    expect(screen.getByText(`${currentHour}:00`)).toBeInTheDocument();
+    expect(screen.getByText(/cloudy/i)).toBeInTheDocument();
+    expect(screen.getByText(/15°C/i)).toBeInTheDocument();
+  });
+});
