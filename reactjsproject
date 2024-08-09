@@ -1,0 +1,354 @@
+Problem Statement
+Signup Screen 
+
+Allows new users to register using email, password, and username(Step1)
+In Step2 provide Address and user details
+Validate the step1 , then navigate to step2. once all fields are filled , then SignUp.
+To register to the app, the user must provide a few details as mentioned below 
+User Name
+Email id
+Password
+Phone number
+Address
+User details(first name and last name)
+All above-mentioned fields are mandatory/required for a successful registration.
+After successful sign-up user must be navigated to the login screen. 
+Email ID must have validation that it must be a proper email containing @xyz.com / @xyz.in. 
+Phone number must have validation that it must be of 10 digits. 
+ 
+
+Login Screen 
+
+User must have an option to log in to the application making use of their email IDs or password they have set up while registering to the application. 
+Upon successful login users must be re-directed to the Products listing page. 
+On successful login, token will be returned by the APIs that need to be stored in local storage. 
+Email ID must have validation that it must be a proper email containing @xyz.com / @xyz.in. 
+Spinner should be shown for each loading state from the API even for GET or POST calls. 
+ 
+
+Stretch Goals 
+
+Upon clicking on the eye icon user show/hide password feature must work. 
+UI must be responsive to handle different screen sizes. 
+Test cases must have been added. 
+
+
+
+
+API details with sample request and response:
+
+
+
+Sign Up API:
+
+URL:- https://fakestoreapi.com/users
+
+POST API
+
+Headers:- None
+
+Body:- 
+
+ {
+
+          email:'John@gmail.com',
+
+          username:'johnd',
+
+          password:'m38rmF$',
+
+          name:{
+
+            firstname:'John',
+
+            lastname:'Doe'
+
+          },
+
+          address:{
+
+            city:'kilcoole',
+
+            street:'7835 new road',
+
+            number:3,
+
+            zipcode:'12926-3874',
+
+            geolocation:{
+
+              lat:'-37.3159',
+
+              long:'81.1496'
+
+            }
+
+          },
+
+          phone:'1-570-236-7033'
+
+        }
+
+Response:-
+
+Status:- 200
+
+ {
+
+  "id": 1
+
+}
+
+
+
+
+
+Login API:
+
+URL :- https://fakestoreapi.com/auth/login
+
+POST
+
+Headers: None
+
+Body:-
+
+{
+
+  "username": "johnd", 
+
+  "password": "m38rmF$"
+
+}
+
+
+
+Response:-
+
+{
+
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXIiOiJqb2huZCIsImlhdCI6MTcxODYwODc5Nn0.zRwuomtbw-QHMM9_nCsXViNXnSAbJjz9xgiS6yDM8yY"
+
+}
+
+
+
+
+
+
+=======================
+Problem Statement
+Product Display and Management:
+
+Products Page: Display List of products, initially 5 products and lazy load 5 on every refresh.
+product card should have image, title, description and user should be able to add to cart from card and +/- also should be displayed from card
+ Lazy Loading: Implement lazy loading on the products page when user reaches to limit increase the product listing.
+
+
+Stretch Goals 
+
+UI must be responsive to handle all the screen resolutions. 
+handle the state management with more performant and quick data access
+Add unit test cases for all the business logic developed in the current screen using jest.
+ 
+
+API details with sample request and response:
+
+Get products with limit:
+
+URL:- https://fakestoreapi.com/products?limit=5
+
+GET API
+
+Body:- None
+
+Response:-
+
+[
+
+  {
+
+    "id": 1,
+
+    "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+
+    "price": 109.95,
+
+    "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+
+    "category": "men's clothing",
+
+    "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+
+    "rating": {
+
+      "rate": 3.9,
+
+      "count": 120
+
+    }
+
+  },
+
+  {
+
+    "id": 2,
+
+    "title": "Mens Casual Premium Slim Fit T-Shirts ",
+
+    "price": 22.3,
+
+    "description": "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
+
+    "category": "men's clothing",
+
+    "image": "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
+
+    "rating": {
+
+      "rate": 4.1,
+
+      "count": 259
+
+    }
+
+  },
+
+  {
+
+    "id": 3,
+
+    "title": "Mens Cotton Jacket",
+
+    "price": 55.99,
+
+    "description": "great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.",
+
+    "category": "men's clothing",
+
+    "image": "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
+
+    "rating": {
+
+      "rate": 4.7,
+
+      "count": 500
+
+    }
+
+  },
+
+  {
+
+    "id": 4,
+
+    "title": "Mens Casual Slim Fit",
+
+    "price": 15.99,
+
+    "description": "The color could be slightly different between on the screen and in practice. / Please note that body builds vary by person, therefore, detailed size information should be reviewed below on the product description.",
+
+    "category": "men's clothing",
+
+    "image": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+
+    "rating": {
+
+      "rate": 2.1,
+
+      "count": 430
+
+    }
+
+  },
+
+  {
+
+    "id": 5,
+
+    "title": "John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet",
+
+    "price": 695,
+
+    "description": "From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl. Wear facing inward to be bestowed with love and abundance, or outward for protection.",
+
+    "category": "jewelery",
+
+    "image": "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
+
+    "rating": {
+
+      "rate": 4.6,
+
+      "count": 400
+
+    }
+
+  }
+
+]
+
+
+
+
+
+===========================
+
+
+Problem Statement
+Cart Management:
+
+Cart Page: Allows users to view all items in their cart, update quantities, or remove items.
+Coupons: Apply coupons which are going to fetched from local json file, maximum 1 if the amount is below $1200 . 2 coupons if it is greater than $1200.
+Payment confirmation: Calculate the final amount, discount amount and show to the user , continue to place order button, display the address from user address, once click on place order, show cancel and confirm buttons. once click on confirm clear the cart.
+Redux Toolkit: Use Redux Toolkit for managing the state of the cart, including additions, deletions, and updates.
+ 
+
+Stretch Goals 
+
+UI must be responsive to handle all the screen resolutions. 
+Data should be store in redux store and access from store , it should be synced correctly, there shouldn't be any issues with final amount calculations
+Add unit test cases for all the business logic developed in the current screen using jest. 
+API Details:
+
+Add to cart , delete cart , update cart, clear cart should be done offline. all actions should be done using redux.
+
+
+
+
+
+
+=================================
+Problem Statement
+Filter: Display the filter Right drawer which contains, category drop down single / multi selection. Price range selector, rating  slider range and apply filter button.
+
+Search: User should be able to search the products with help of Product name or category name , Product name should display the products starts with or contains the text. Category name enter should be shown all products which are matching with category name
+
+
+
+Search : offline search with in the redux state management
+
+Filter: offline filter with category, price and rating.
+
+===================
+Problem Statement
+Trending:
+
+Show the Modal page , where it should have the pie Diagrams which shows the data based on regions what categories are trending.
+
+User Profile:
+
+Shows a right drawer screen, with user information which is saved while signing up the user, from local storage.
+
+
+
+Note:
+
+Trending data should be fetched and saved to redux store , once user completes the purchase then data should be updated
+
+User profile should fetch from local storage where the data while signing up the user should be stored in local storage.
+==========================
+Problem Statement
+Use React Router for managing navigation across different components and pages without reloading the browser.
+Should implement the safety route , which blocks user to access the products list page until Sign-In.
+When ever user moving from one step to another step in same screen like checkout process, data should be fetched from state and not destroyed and created every time.
